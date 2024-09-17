@@ -1,15 +1,38 @@
-# Reuse parts of pipelines using TEMPLATES
+TEMPLATES allow to reuse pipeline logic across multiple pipelines, making YAML more modular and maintainable
+Templates can contain jobs, steps, stages and even variables 
 
-# Main pipeline file
-stages:
-  - template: build-template.yml  # Reference to a template
+Key types of templates
+Step templates: reuse steps in multiple jobs or stages 
+Job templates: share entire jobs across different pipelines or stages
+Stage templates: share entire stages across pipelines 
+Variable templates: define reusable variables 
 
-# build-template.yml
+- Templates are referenced in main pipeline file, we need to pass parameters to customize them for different contexts
+
+Key fields 
+template: specifies the file path of the template 
+parameters: passes parameters to the template for dynamic behavior 
+
+__________________________________________________
+
+# example step template (build-template.yaml)
+steps:
+  - script: |
+      echo "Building project in $(buildEnv)"
+    displayName: 'Build Step'
+
+
+# main pipeline using step template
 parameters:
-  image: 'ubuntu-latest'
-jobs:
-  - job: BuildJob
-    pool:
-      vmImage: ${{ parameters.image }}
-    steps:
-      - script: echo "Building"
+  - name: buildEnv
+    type: string
+    default: 'dev'
+
+stages:
+  - stage: Build
+    jobs:
+      - job: BuildJob
+        steps:
+          - template: build-template.yml
+            parameters:
+              buildEnv: 'production'
