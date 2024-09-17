@@ -1,0 +1,41 @@
+# RESOURCES in ADO YAML pipelines define external dependencies like repositories, containers, packages, service connections.
+# We can pull code from external repositories, trigger pipelines based on resources or use artifacts from other pipelines
+
+# Key Resource Types
+# Repositories: External Git repositories (GitHub, Azure Repos etc.)
+# Pipelines: Artifacts from other Azure Pipelines
+# Containers: Docker containers that the pipeline may need
+# Packages: External packages feeds such as NuGet, npm etc.
+
+# __________________________________________________
+
+resources:
+  repositories:
+    - repository: myRepo
+      type: github
+      name: myOrg/myRepo
+      ref: refs/heads/main
+      endpoint: myGitHubServiceConnection
+
+jobs:
+  - job: Build
+    steps:
+      - checkout: self  # Checkout the default repo
+      - checkout: myRepo  # Checkout the GitHub repo
+
+# __________________________________________________
+# example of pipeline resources (using artifacts from another pipeline)
+
+resources:
+  pipelines:
+    - pipeline: upstreamBuild
+      source: my-project-ci
+      trigger:
+        branches:
+          include:
+            - main
+
+jobs:
+  - job: Deploy
+    steps:
+      - download: upstreamBuild

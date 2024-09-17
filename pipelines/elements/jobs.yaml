@@ -1,0 +1,14 @@
+# JOB contains a series of steps and run on a single agent
+  # job - name of the job
+  # displayName - human-readable name of the job
+  # dependsOn - specify job dependencies
+  # condition - conditional execution of the job
+  # timeoutInMinutes - set a timeout for the job
+
+jobs:
+  - job: BuildJob
+    displayName: "Build the Project"
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - script: echo "Building the project"

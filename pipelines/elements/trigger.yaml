@@ -1,0 +1,11 @@
+# TRIGGER defines when the pipeline will run (e.g. when certain branches are updated)
+  # branches - branches that trigger pipeline (include/exclude)
+  # paths - specify files/directories that trigger the pipeline
+  # pr - defines behavior for pull requests
+
+trigger:
+  branches:
+    include:
+      - main # Run pipeline on commits to 'main'
+    exclude:
+      - develop   #Exclude commits to 'develop' branch

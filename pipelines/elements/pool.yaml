@@ -1,0 +1,9 @@
+# POOL specifies the type of machine or agent (e.g. hosted agent) where the pipeline will run
+  # vmImage - specifies virtual machine image
+  # name - specifies the agent pool name (if self-hosted)
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+pool:
+  name: 'MyCustomPool'

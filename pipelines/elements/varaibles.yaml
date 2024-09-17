@@ -1,0 +1,8 @@
+# VARIABLS can be defined and used in the pipeline
+
+variables:
+  buildConfiguration: 'Release'
+  buildPlatform: 'x64'
+
+steps:
+  - script: echo $(buildConfiguration)

@@ -1,0 +1,5 @@
+# ARTIFACTS can be produced and published to share between jobs/stages
+
+steps:
+  - publish: $(Build.ArtifactStagingDirectory)
+    artifact: drop

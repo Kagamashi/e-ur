@@ -1,0 +1,5 @@
+# STEPS defines the individual tasks or script that run in a job
+  # script - runs a shell or PowerShell command
+  # task - runs a predefined Azure DevOps task (e.g. npm, Maven)
+    # inputs - define input parameters for the task
+  # checkout - checks out a repository (default is self)

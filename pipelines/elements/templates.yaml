@@ -1,0 +1,15 @@
+# Reuse parts of pipelines using TEMPLATES
+
+# Main pipeline file
+stages:
+  - template: build-template.yml  # Reference to a template
+
+# build-template.yml
+parameters:
+  image: 'ubuntu-latest'
+jobs:
+  - job: BuildJob
+    pool:
+      vmImage: ${{ parameters.image }}
+    steps:
+      - script: echo "Building"

@@ -1,0 +1,9 @@
+# Pipeline is divided into STAGES, and each stage can contain multiple jobs
+  # stage - name of the stage
+  # dependsOn - specifies that this stage depends on previous stage
+  # jobs - list of jobs in the stage
+
+stages:
+  - stage: Build
+  - stage: Test
+    dependsOn: Build
