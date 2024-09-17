@@ -7,7 +7,7 @@
 # Containers: Docker containers that the pipeline may need
 # Packages: External packages feeds such as NuGet, npm etc.
 
-# __________________________________________________
+__________________________________________________
 
 resources:
   repositories:
@@ -23,9 +23,7 @@ jobs:
       - checkout: self  # Checkout the default repo
       - checkout: myRepo  # Checkout the GitHub repo
 
-# __________________________________________________
 # example of pipeline resources (using artifacts from another pipeline)
-
 resources:
   pipelines:
     - pipeline: upstreamBuild
