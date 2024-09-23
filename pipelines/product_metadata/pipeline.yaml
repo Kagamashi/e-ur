@@ -1,4 +1,0 @@
-parameters:
-- name: subscription
-  type: string
-  default: non-prod
