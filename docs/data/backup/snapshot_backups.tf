@@ -46,3 +46,12 @@ resource "azurerm_managed_disk" "restored" {
   create_option        = "Copy"
   source_resource_id   = azurerm_snapshot.example_incremental.id
 }
+
+# list snapshots
+# az snapshot list --resource-group rg-snapshots --output table
+
+# create new disk from snapshot
+# az disk create --resource-group rg-snapshots --name restored-disk --source example-incremental-snapshot
+
+# attach restored disk to a vm
+# az vm disk attach --resource-group rg-snapshots --vm-name myVM --name restored-disk
