@@ -1,0 +1,98 @@
+__________________________________________________
+
+# BLUE-GREEN DEPLOYMENT
+# two environments "Blue" and "Green" are used for production
+# "Blue" serves traffic, while "Green" is updated with the new release
+# Once the relase is verified traffic is switched from "Blue" environment to "Green" making the new version live
+
+stages:
+  - stage: DeployToGreen
+    jobs:
+      - job: DeployJob
+        steps:
+          - script: echo "Deploying to Green environment"
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'MyAzureSubscription'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az webapp deployment slot swap --resource-group myResourceGroup --name myApp --slot green --target-slot production
+
+  - stage: TrafficShift
+    dependsOn: DeployToGreen
+    jobs:
+      - job: ShiftTraffic
+        steps:
+          - script: echo "Shifting traffic to the Green environment"
+
+__________________________________________________
+
+# CANARY
+# new version of the app is rolled out to a small subset of users first
+# this small portion of users ("canary group") acts as a test group
+# if tests perform well, the deployment is gradually expanded to the rest of the user base
+
+stages:
+  - stage: CanaryRelease
+    jobs:
+      - job: DeployCanary
+        steps:
+          - script: echo "Deploying canary version to a subset of users"
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'MyAzureSubscription'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az appservice plan update --name myAppServicePlan --resource-group myResourceGroup --sku P1v2
+                az webapp traffic-routing set --name myApp --resource-group myResourceGroup --percentage-green 10
+
+  - stage: ExpandCanary
+    dependsOn: CanaryRelease
+    jobs:
+      - job: IncreaseTraffic
+        steps:
+          - script: echo "Increasing canary traffic to 50%"
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'MyAzureSubscription'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az webapp traffic-routing set --name myApp --resource-group myResourceGroup --percentage-green 50
+
+__________________________________________________
+
+
+# ROLLBACKS AND REDEPLOYMENTS
+# help recover from failed or faulty deploymnts
+# Rollbacks undo a previous deployment and return the application to a known stable state
+# Redeployments involve re-executing a deployment with a fixed version of the code or configuration
+
+jobs:
+  - job: Deploy
+    steps:
+      - script: echo "Deploying new version"
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: 'MyAzureSubscription'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az webapp deployment slot swap --resource-group myResourceGroup --name myApp --slot green --target-slot production
+      - script: echo "Running smoke tests"
+        continueOnError: true  # Proceed even if this step fails
+      
+  - job: Rollback
+    dependsOn: Deploy
+    condition: failed()
+    steps:
+      - script: echo "Rolling back to previous version"
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: 'MyAzureSubscription'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az webapp deployment slot swap --resource-group myResourceGroup --name myApp --slot green --target-slot production --swap-with-preview

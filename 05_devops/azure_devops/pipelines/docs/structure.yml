@@ -1,0 +1,25 @@
+trigger: #specifies which branches trigger the pipeline
+  branches:
+    include:
+      - main
+
+stages: # logical grouping of jobs
+  - stage: Build
+    jobs: # each stage consists of one or more jobs, which are units of work that can run on an agent
+      - job: BuildJob
+        steps: # tasks executed within a job (running script/commands, deploying code)
+          - script: echo "Building the project..."
+          
+  - stage: Test
+    dependsOn: Build
+    jobs:
+      - job: TestJob
+        steps:
+          - script: echo "Running tests..."
+          
+  - stage: Deploy
+    dependsOn: Test
+    jobs:
+      - job: DeployJob
+        steps:
+          - script: echo "Deploying the project..."
