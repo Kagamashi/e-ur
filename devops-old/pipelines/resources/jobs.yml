@@ -1,0 +1,41 @@
+# JOB is a collection of steps that run sequentially on the same agent in a pipeline
+# Jobs are typically used for independent units of work, like building, testing, or deploying code 
+
+# Key fields 
+# job: unique identifier for the job 
+# displayName: human-readable name for the job 
+# condition: determines when the job runs (similar to conditions on steps) 
+# dependsOn: specifies other jobs that this job depends on 
+# timeoutInMinutes: sets a timeout for the job 
+# strategy: enables parallel jobs or matrix builds (e.g. running the same job on multiple platforms) 
+
+__________________________________________________
+
+# basic job definition
+jobs:
+  - job: Build
+    displayName: 'Build Job'
+    steps:
+      - script: echo "Building the project"
+
+# job dependencies
+jobs:
+  - job: Build
+    steps:
+      - script: echo "Building"
+  
+  - job: Deploy
+    dependsOn: Build
+    steps:
+      - script: echo "Deploying"
+
+# timeout and strategy
+jobs:
+  - job: Test
+    timeoutInMinutes: 30
+    strategy:
+      matrix:
+        Linux:
+          vmImage: 'ubuntu-latest'
+        Windows:
+          vmImage: 'windows-latest'
