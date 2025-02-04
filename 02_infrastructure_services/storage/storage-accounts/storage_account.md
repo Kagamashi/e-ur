@@ -11,15 +11,24 @@ Azure Storage is a **highly scalable** service that offers multiple data service
 
 ## 2. Storage Account Types
 
-| Type                         | Backed By    | Usage Scenarios                                                               |
-|------------------------------|--------------|-------------------------------------------------------------------------------|
-| **Standard**                 | HDD-based    | Low-cost per GB, bulk storage, infrequently accessed data.                   |
-| **Premium**                  | SSD-based    | Low-latency and high-performance for I/O-intensive apps (e.g., databases).    |
-| **Premium Block Blobs**      | SSD-based    | For block blobs & append blobs with high transaction rates.                  |
-| **Premium File Shares**      | SSD-based    | Enterprise, high-performance scale apps with SMB & NFS shares support.       |
-| **Premium Page Blobs**       | SSD-based    | For page blobs (VM OS/data disks) requiring low-latency performance.         |
+## Storage Account Types
+| **Type**                    | **Supported Services**                                               | **Redundancy Options**                | **Usage**                                                                                                                                                       |
+|-----------------------------|----------------------------------------------------------------------|----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Standard general-purpose v2** | Blob, Queue, Table, Azure Files                                    | LRS, GRS, RA-GRS, ZRS, GZRS, RA-GZRS    | - Standard storage for most scenarios.<br>- Recommended for blobs, file shares, queues, tables.<br>- Use premium file shares type if you need NFS in Azure Files. |
+| **Premium block blobs**     | Blob Storage (incl. Data Lake Storage)                               | LRS, ZRS                                | - Premium for block/append blobs.<br>- Ideal for high transaction rates, small objects, or low-latency needs.                                                  |
+| **Premium file shares**     | Azure Files                                                          | LRS, ZRS                                | - Premium for file shares.<br>- Suited for enterprise or high-performance applications.<br>- Supports SMB and NFS file shares.                                  |
+| **Premium page blobs**      | Page blobs only                                                      | LRS                                    | - Premium for page blobs only.                                                                                                                                |
 
 > **Note**: You cannot directly convert a Standard storage account to Premium or vice versa.
+
+| **Storage Service**            | **Endpoint Format**                                                   |
+|--------------------------------|----------------------------------------------------------------------|
+| **Blob Storage**               | `https://<storage-account-name>.blob.core.windows.net`                |
+| **Data Lake Storage Gen2**     | `https://<storage-account-name>.dfs.core.windows.net`                 |
+| **Azure Files**                | `https://<storage-account-name>.file.core.windows.net`                |
+| **Queue Storage**              | `https://<storage-account-name>.queue.core.windows.net`               |
+| **Table Storage**              | `https://<storage-account-name>.table.core.windows.net`               |
+
 
 ## 3. Azure Storage Data Services
 
