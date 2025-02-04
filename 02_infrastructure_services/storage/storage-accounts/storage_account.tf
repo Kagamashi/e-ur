@@ -1,5 +1,5 @@
 # Azure Storage Account
-# container for storing blobs, files, queues, tables and disks
+# container for storing blobs, files, queues, tables
 # provides scalability, durability, high availability while supporting different storage tiers
 
 # Types of storage:
@@ -7,7 +7,6 @@
 #   - File Storage: fully managed SMB/NFS file shares
 #   - Queue Storage: asynchronous messaging service
 #   - Table Storage: NoSQL key-value storage
-#   - Disk Storage: managed disks for VMs
 
 # Types of replication:
 #   - LRS (Locally Redundant Storage): 3 copies within a single data center
@@ -16,12 +15,6 @@
 #   - RA-GRS (Read Access GRS): same as GRS but in secondary region only readable
 #   - GZRS (Geo Zone Redundant Storage): combines ZRS + GRS for best resillience
 #       data is copied in primary region using ZRS, in secondary region using LRS
-
-# Storage access tiers:
-#   - HOT: frequently accessed data
-#   - COOL: infrequently accessed data (30+ days)
-#   - ARCHIVE: long-term data storage (180+ days)
-# Use Lifecycle Management Policies to automatically move data to a cheaper tier
 
 resource "azurerm_storage_account" "example" {
   name                = "storageaccountname"
