@@ -1,5 +1,9 @@
 # Azure App Service
-# fully managed platform for hosting web applications, REST APIs, mobile backends
+# fully managed platform for hosting 
+#   Web apps: ASP.NET, Java, Node.js, PHP, Python, Ruby
+#   API apps: RESTful APIs
+#   WebJobs: background tasks
+#   Mobile apps: iOS, Android, Windows
 
 #   - supports HTTPS, Azure Front Door, Application Gateway
 #   - manual and auto-scaling based on parameters
