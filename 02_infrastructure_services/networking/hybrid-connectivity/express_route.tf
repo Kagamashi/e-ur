@@ -21,6 +21,7 @@
 #   Cloud Exchange Co-location: connect via Exchange Provider (eq. Equinix, Megaport)
 #   Point-to-Point (P2P): dedicated fiber link between on-prem and Azure
 #   Any-to-Any (IPVPN): uses an MPLS VPN for global enterprise connectivity
+#   Directly from ExpressRoute sites
 
 # ExpressRoute components:
 #   ExpressRoute Circuit: dedicated connection between Azure and on-prem
