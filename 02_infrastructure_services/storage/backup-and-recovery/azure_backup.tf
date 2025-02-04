@@ -1,10 +1,21 @@
 # Azure Backup
-# cloud-based backup service that provides data protection for VMs, SQL databases, file shares
+# cloud-based backup service that enables secure, scalable, and centralized data protection for on-premises and Azure workloads
 
-#   - agentless backup - no need to install software for backup
-#   - application-aware backup - supports SQL, SAP HANA, Exchange
-#   - GRS - replicates data to secondary region
-#   - long term retention - from days to years
+# Supported backup scenarios:
+# - On-premises: 
+# - Azure VMs: Full VM, Managed Disks
+# - Azure File Shares
+# - Databases: SQL Server, SAP HANA, PostgreSQL, MySQL
+# - Storage: Azure Blobs
+# - Containers: AKS
+
+# Key features:
+# - zero-infrastructure backup: no backup server or infrastructure required
+# - centralized backup management: backup center
+# - security: built-in security for data in transit and at rest
+
+# Recovery Time Objective [RTO]: defines how quickly data mu be restored after a failure (max downtime allowed 4h = RTO eq 4h)
+# Recovery Point Objective [RPO]: 
 
 # Types of replication:
 #   - LRS (Locally Redundant Storage): 3 copies within a single data center
