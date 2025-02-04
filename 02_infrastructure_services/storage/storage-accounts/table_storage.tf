@@ -9,8 +9,8 @@ resource "azurerm_storage_account" "example" {
   resource_group_name      = azurerm_resource_group.example.name
   location                 = azurerm_resource_group.example.location
   account_tier             = "Standard"
-  account_replication_type = "LRS"  # Locally Redundant Storage
-  account_kind             = "StorageV2"  # Required for Table Storage support
+  account_replication_type = "LRS"
+  account_kind             = "StorageV2"  # Required for Table Storage support (it's default)
 
   network_rules {
     default_action = "Deny"
@@ -22,6 +22,17 @@ resource "azurerm_storage_account" "example" {
 resource "azurerm_storage_table" "example" {
   name                 = "examplestorage"
   storage_account_name = azurerm_storage_account.example.name
+}
+
+resource "azurerm_storage_table_entity" "example" {
+  storage_table_id = azurerm_storage_table.example.id
+
+  partition_key = "examplepartition"
+  row_key       = "examplerow"
+
+  entity = {
+    example = "example"
+  }
 }
 
 resource "azurerm_private_endpoint" "example" {
