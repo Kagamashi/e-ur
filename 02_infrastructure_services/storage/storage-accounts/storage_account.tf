@@ -3,10 +3,11 @@
 # provides scalability, durability, high availability while supporting different storage tiers
 
 # Types of storage:
-#   - Blob Storage: object storage for unstructured data
-#   - File Storage: fully managed SMB/NFS file shares
-#   - Queue Storage: asynchronous messaging service
-#   - Table Storage: NoSQL key-value storage
+#   - Azure Blobs: object storage for unstructured data
+#   - Azure Files: fully managed SMB/NFS file shares
+#   - Azure Queues: asynchronous messaging service
+#   - Azure Tables: NoSQL key-value storage
+#   - Azure Disks: Block-level storage volumes for Azure VMs.
 
 # Types of replication:
 #   - LRS (Locally Redundant Storage): 3 copies within a single data center
@@ -15,9 +16,11 @@
 #   - RA-GRS (Read Access GRS): same as GRS but in secondary region only readable
 #   - GZRS (Geo Zone Redundant Storage): combines ZRS + GRS for best resillience
 #       data is copied in primary region using ZRS, in secondary region using LRS
+#   - RA-GZRS (Read Access Geo Zone Redundant Storage): same as GZRS but in secondary region only readable
+# RA makes the data always available, even if the primary region is running optimally (data in secondary region may not be up-to-date due to RPO)
 
 resource "azurerm_storage_account" "example" {
-  name                = "storageaccountname"
+  name                = "storageaccountname" # 3-24 characters, lowercase letters and numbers (globally unique)
   resource_group_name = azurerm_resource_group.example.name
 
   location                 = azurerm_resource_group.example.location
