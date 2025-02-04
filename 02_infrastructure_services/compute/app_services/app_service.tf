@@ -1,37 +1,39 @@
 # Azure App Service
 # fully managed platform for hosting web applications, REST APIs, mobile backends
 
-#   - runs applications in Docker containers
 #   - supports HTTPS, Azure Front Door, Application Gateway
 #   - manual and auto-scaling based on parameters
 #   - CI/CD integration: GitHub, Bitbucket, Azure DevOps
-#   - multiple language support: .NET, Java, Node.js, Python, PHP, Ruby
+#   - multiple language support: ASP.NET, Java, Node.js, PHP, Python, Ruby, plus custom scripts
+#   - serverless code: run code snippers or script on-demand (pay only for used compute)
 
-# Azure App Service Plans:
-#   Free (F1) - 1GB memory, no custom domains
-#   Basic (B1-B3) - 10-100GB storage, custom domains, auto-scale
-#   Standard (S1-S3) - 50-250GB storage, staging slots
-#   Premium (P1-P3, P1V2-P3V2..) - traffic routing, isolated VMs
-#   Isolated (I1-I3) - dedicated VNET
+# Deployment slots:
+#  - possibility to deploy new versions of our app without affecting production
+#  - Staging slot: test changes in a live environment
+#  - Swap: seamlessly swap staging with production to avoid downtime
+#  - Auto swap: enable zero-downtime continuous deployments
+# Retain last known good site by swapping back if needed
 
-resource "azurerm_app_service_plan" "example" {
-  name                = "appservice-plan"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-  kind                = "Linux"  # Linux-based App Service
-  reserved            = true
+# Custom domains:
+# by default app is reachable at <appname>.azurewwebsites.net
+#   1. Buy domain from Azure or 3rd party
+#   2. Add A or CNAME record to map new domain to <appname>.azurewebsites.net
+#      CNAME doesn't break if IP changes
+#   3. Validate and enable
 
-  sku {
-    tier = "PremiumV2"
-    size = "P1v2"  # 1 vCPU, 3.5 GB RAM
-  }
-}
 
 resource "azurerm_linux_web_app" "example" {
-  name                = "example"
+  name                = "example-linux-web-app"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_service_plan.example.location
   service_plan_id     = azurerm_service_plan.example.id
+
+  site_config {}
+}
+
+resource "azurerm_linux_web_app_slot" "example" {
+  name           = "example-slot"
+  app_service_id = azurerm_linux_web_app.example.id
 
   site_config {}
 }
