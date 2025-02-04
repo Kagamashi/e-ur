@@ -1,5 +1,6 @@
 # Azure Container Instace
-# serverless container deployment service that allows to run Docker containers without managing VMs or Kubernetes clusters
+# fast and simple way to run containers without managing VMs or adopting complex orchestration
+# provides a single pod of Hyper-V isolated containers on demand
 
 # - deployment options - single container/multi-container groups
 
