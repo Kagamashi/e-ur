@@ -1,23 +1,25 @@
-# Layer 7 (HTTP/HTTPS) load balancer.
-# recommended for Web Applications, APIs
+# Layer 7 (HTTP/HTTPS) load balancer
+# web traffic manager that routes and balances HTTP/HTTPS requests across a pol of web servers
+# supports VMs, VMSSs, Azure App Service, on-premises server
 
 # Features:
-# - SLL Termination & End-to-End SSL
-# - Web Application Firewall (WAF)
-#     protects against SQL injection, XSS, DDoS attacks
-#     supports OWASP Core Rule Set (CRS)
-#     runs in detection or prevention mode
-# - Routes traffic using URL-based and host-based rules
-#     URL path (e.g., /api → API servers, /static → CDN)
-#     Host header (e.g., app1.contoso.com → Backend1, app2.contoso.com → Backend2).
-# - Autoscaling & Zone Redundancy
+#   - session stickiness: ensures client requests in a session go to the same backend server
+#   - Web Application Firewall (WAF)
+#       protects against SQL injection, XSS, DDoS attacks
+#       supports OWASP Core Rule Set (CRS)
+#       runs in detection or prevention mode
+#  - SSL termination and end-to-end SSL
+#  - autoscaling & zone redundancy
+#  - supports HTTP, HTTPS, HTTP/2 and WebSocket protocols
 
-# Best practices:
-#   - enable WAF in prevention mode
-#   - redirect HTTP to HTTPS
-#   - use custom domain names and certificates for SSL security
-#   - configure health probes to detect unhealthy instances
-#   - enable connection draining to allow graceful shutdowns
+# Routing methods:
+#   - path-based routing: routes different URL paths to specific backend pools
+#   - multiple-site routing: supports multiple web apps on the same Application Gateway
+# additional features:
+#   - redirection: redirects HTTP to HTTPS
+#   - rewrite HTTP headers: modify request/response headers
+#   - custom error pages: display user-defined error pages instead of default messages
+
 
 resource "azurerm_public_ip" "example" {
   name                = "example-pip"
@@ -88,7 +90,7 @@ resource "azurerm_application_gateway" "network" {
     protocol                       = "Http"
   }
 
-  request_routing_rule { # direct traffic to backend
+  request_routing_rule { # bind listeners to backend pools
     name                       = local.request_routing_rule_name
     priority                   = 9
     rule_type                  = "Basic"
