@@ -1,16 +1,18 @@
 # Layer 4 (TCP/UDP) load balancer.
-# recommeneded for general-purpose network traffic
+# distributed incoming network traffic across a group of Azure VMs or instances in a VMSS
 
 # SKUs:
 #   Basic: small apps/test environments, no HA, open to internet (not secure), desn't support Cross-VNet peering
 #   Standard: enterprise/production workloads, HA, requires NSG rule, supports Cross-VNet peering
 
 # Components:
-#   Frontend IP Configuration – The public or private IP that clients use to connect.
-#   Backend Pool – A group of VMs or VM Scale Sets receiving traffic.
-#   Health Probes – Periodic checks to determine backend VM health.
-#   Load Balancing Rules – Define how traffic is distributed (port mapping, session persistence, etc.).
-#   Outbound Rules – Control outbound NAT from VMs in the backend
+#   Frontend IP Configuration – public or private IP that clients use to connect to the application 
+#   Backend Pool – a group of VMs or VM Scale Sets receiving traffic.
+#   Health Probes – periodic checks to determine backend VM health
+#     - TCP probe: success if TCP session can be established
+#     - HTTP/S probe: success if HTTP 200 response is returned
+#   Load Balancing Rules – define how traffic is distributed to the backend pool
+#   Outbound Rules – configures Source Network Address Translation (SNAT) for outbound traffic from backend instances to internet
 
 # Internal Load Balancer : uses private IP to route traffic within Azure VNets
 # Public Load Balancer: exposes a public IP to distribute internet-facing traffic
