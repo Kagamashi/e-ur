@@ -1,10 +1,14 @@
 # Virtual Machine Scale Sets (VMSSs)
-
-#   - autoscaling based on CPU, memory, custom metrics
-#   - load balancing integration
+#   - autoscaling based on CPU, memory, custom metrics from few VMs up to thousands
+#   - integrates with Load Balancer or Application Gateway
 #   - supports Spot VMs for cost savings
 #   - auto-healing (replaces unhealthy VMs)
-#   - multi-zone availability for redundancy
+
+# Scaling:
+#   - vertical scaling: increase/decrease VM size (CPU, memory)
+#   - horizontal scaling: add/remove VM instances
+#   - autoscaling: automatically scale based on demand
+#     - define mix, max, default instance counts
 
 resource "azurerm_linux_virtual_machine_scale_set" "example" {
   name                = "exampleset"
