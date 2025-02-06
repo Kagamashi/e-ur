@@ -6,7 +6,7 @@
 # name: name of the custom/self-hosted agent pool
 # demands: specifies hardware or software capabilities required by the job
 
-__________________________________________________
+###
 
 # using Azure-hosted agent pool
 pool:
