@@ -8,7 +8,7 @@ approvals:
       - user2@domain.com
 
 
-__________________________________________________
+###
 
 # AUTOMATED GATES
 # perform predefined checks to ensure that certain conditions are met before a deployment proceeds
