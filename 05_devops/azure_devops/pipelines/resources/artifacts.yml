@@ -13,7 +13,7 @@
 
 # Artifacts can be also downloaded from other pipelines using resources
 
-__________________________________________________
+###
 
 steps:
   - publish: $(Build.ArtifactStagingDirectory)
