@@ -14,7 +14,7 @@
 # - string parameters: useful for passing text values or predefined environments
 # - boolean parameters: ideal for turning on/off features in pipelines (e.g. run tests or not)
 
-__________________________________________________
+###
 
 parameters:
   - name: environment
