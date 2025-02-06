@@ -7,7 +7,7 @@
 #   paths: filters PR-triggering by file path changes
 #   autoCancel: whether running builds are automatically cancelled when new commits are pushed to the PR
 
-__________________________________________________
+###
 
 pr:
   branches:
