@@ -9,7 +9,7 @@
 
 # Multiple conditions can be combined using logical operators: and, or, not
 
-__________________________________________________
+###
 
 jobs:
   - job: Deploy
