@@ -23,7 +23,7 @@
 # Build.BuildId: unique ID of the pipeline run 
 # Agent.OS: operating system of the agent running the job
 
-__________________________________________________
+###
 
 # example defining variables
 variables:
