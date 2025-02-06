@@ -13,7 +13,7 @@
 # template: specifies the file path of the template 
 # parameters: passes parameters to the template for dynamic behavior 
 
-__________________________________________________
+###
 
 # example step template (build-template.yaml)
 steps:
@@ -37,8 +37,7 @@ stages:
             parameters:
               buildEnv: 'production'
 
-__________________________________________________
-
+###
 # test-template.yml
 parameters:
   testProject: ''
