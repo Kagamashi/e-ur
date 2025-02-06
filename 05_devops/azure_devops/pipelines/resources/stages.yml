@@ -8,7 +8,7 @@
 # jobs: lists the jobs within the stage 
 # condition: allows conditional execution of the stage 
 
-__________________________________________________
+###
 
 # example defining multiple stages
 stages:
