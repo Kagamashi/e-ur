@@ -1,5 +1,4 @@
-__________________________________________________
-
+###
 # BLUE-GREEN DEPLOYMENT
 # two environments "Blue" and "Green" are used for production
 # "Blue" serves traffic, while "Green" is updated with the new release
@@ -26,8 +25,7 @@ stages:
         steps:
           - script: echo "Shifting traffic to the Green environment"
 
-__________________________________________________
-
+###
 # CANARY
 # new version of the app is rolled out to a small subset of users first
 # this small portion of users ("canary group") acts as a test group
@@ -62,8 +60,7 @@ stages:
               inlineScript: |
                 az webapp traffic-routing set --name myApp --resource-group myResourceGroup --percentage-green 50
 
-__________________________________________________
-
+###
 
 # ROLLBACKS AND REDEPLOYMENTS
 # help recover from failed or faulty deploymnts
