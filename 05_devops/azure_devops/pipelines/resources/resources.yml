@@ -7,7 +7,7 @@
 # Containers: Docker containers that the pipeline may need
 # Packages: External packages feeds such as NuGet, npm etc.
 
-__________________________________________________
+###
 
 resources:
   repositories:
