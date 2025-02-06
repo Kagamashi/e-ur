@@ -8,7 +8,7 @@
 # checkout: checks out code from the repository 
 # download: downloads artifacts from other stages or pipelines 
 
-__________________________________________________
+###
 
 # example using a script step
 steps:
