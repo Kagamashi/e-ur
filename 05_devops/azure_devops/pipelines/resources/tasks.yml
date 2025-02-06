@@ -22,3 +22,63 @@ steps:
       echo "Building the project"
       dotnet build
     displayName: 'Build Project'
+
+###
+
+# Azure CLI Task: Executes Azure CLI commands to manage Azure resources.
+steps:
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: 'MyAzureSubscription'
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az group create --name myResourceGroup --location eastus
+
+
+# .NET Core Task: Builds and tests .NET Core applications.
+steps:
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+      projects: '**/*.csproj'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'test'
+      projects: '**/*.Tests.csproj'
+
+
+# Docker Task: Builds, pushes, or runs Docker images.
+steps:
+  - task: Docker@2
+    inputs:
+      containerRegistry: 'MyDockerRegistry'
+      repository: 'myapp'
+      command: 'buildAndPush'
+      Dockerfile: '**/Dockerfile'
+      tags: |
+        $(Build.BuildId)
+
+
+# Copy Files Task: Copies files from one location to another during the pipeline.
+steps:
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: '$(Build.SourcesDirectory)'
+      contents: '**'
+      targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+
+# Publish Artifacts Task: Publishes artifacts to be used later in the pipeline.
+steps:
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'drop'
+
+# CUSTOM TASK
+steps:
+  - script: |
+      echo "Custom task to clean up temp files"
+      rm -rf /tmp/my-temp-files
+    displayName: 'Clean up temporary files'
