@@ -2,10 +2,11 @@
 # We can pull code from external repositories, trigger pipelines based on resources or use artifacts from other pipelines
 
 # Key Resource Types
-# Repositories: External Git repositories (GitHub, Azure Repos etc.)
-# Pipelines: Artifacts from other Azure Pipelines
-# Containers: Docker containers that the pipeline may need
-# Packages: External packages feeds such as NuGet, npm etc.
+    # other repositories
+    # pipelines
+    # builds (classic builds)
+    # containers (for container jobs)
+    # packages
 
 ###
 
