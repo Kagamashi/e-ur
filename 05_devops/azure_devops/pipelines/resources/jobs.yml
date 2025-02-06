@@ -9,7 +9,7 @@
 # timeoutInMinutes: sets a timeout for the job 
 # strategy: enables parallel jobs or matrix builds (e.g. running the same job on multiple platforms) 
 
-__________________________________________________
+###
 
 # basic job definition
 jobs:
