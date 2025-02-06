@@ -19,7 +19,7 @@
 # path filters: only trigger pipelines for changes in specific files/directories 
 # autoCancel: automatically cancels old pipeline runs if a newer one is triggered
 
-__________________________________________________
+###
 
 # example CI trigger on specific branches
 trigger:
